@@ -1,13 +1,49 @@
 # Tutorial Notes
 
 ### install docker
-- distrib package or standalone static binary
-- run the daemon
-    - which IPs range to assign
-    - which image storage filesystem ? (overlayFS, devicemapper, …)
+
+- use the toolbox
+- show docker-machine
+- do ls, show nothing is there
+- create the "default" machine
+    - docker-machine create -d virtualbox --virtualbox-memory 2048 default
+    - this is done in the "Docker Quickstart Terminal"
+- turn the machine on, off, run ls
+- eval the docker env
+
+- introduce the `docker` command: once you run the `docker-machine env`
+    command, `docker` is sandboxed to look at that one machine.
 
 ### Run first container
-    - php:7 on debian
+- maybe show `docker run hello-world` first?
+
+- docker run -it debian bash
+    - this creates a container from this image
+- image: a set of "layers" that contain all the files needed
+    to make something. So debian consists of a bunch of files/directories
+    - "layers" is a new term at this point 
+- docker history debian
+
+- docker run -it php:7
+    - several layers now "already" exist
+- docker history php:7
+    - see the 2 layers are the same as debian
+    - see the default command
+- docker run -it php:7 'php' '-v'
+- docker run -it php:7 'php' '-i'
+- each "layer" is usable as its own image, just like a git sha
+    - docker images just shows the "head"/latest layer for each image
+    - php:7 is just an alias to the latest image id / layer
+- container: execution of an image with specific configuration
+    - you basically run the image (all the files/directories) against
+        this big configuration
+    - configuration is a JSON file stored on your docker-daemon system
+    - docker inspect
+    - use the "nickname" of the container
+- docker inspect
+    - includes the images
+    - includes the default command
+    - list of volumes
 
 ### what happened ?
     - pulls image layers (union FS)
