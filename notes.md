@@ -84,3 +84,26 @@
 - didn't last long!
 - compose services are meant to be long running processes
     - fpm + nginx
+
+### to the clouds!
+    - works well locally?
+    - what about in a remote instance?
+
+### rise of the machine
+    - docker-machine create --driver $driver $name
+    - export ENV variables
+    - docker-compose up -d
+
+### didn't work ?
+
+That's beause your setup is not portable (host specific volumes!). Let's fix that.
+
+    - tweak config specifically for prod
+        - you want a different Dockerfile for prod and dev?
+            - xdebug, COPY sources VS volumes, different fpm config
+    - extend the default yaml file, one for each setup
+    - don't use volumes, instead COPY the sources in the image
+        - so much faster once built, since composer vendors are in the image already
+            - either copy the vendors folder
+            - or use composer install in a Dockerfile step
+
